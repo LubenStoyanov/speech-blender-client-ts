@@ -1,21 +1,25 @@
-export const login = async (data) => {
+import { FormData } from "../Login";
+
+export const login = async (data: FormData) => {
   try {
-    const res = await fetch(
-      // "https://speech-blender-backend-production.up.railway.app/login",
-      "http://localhost:8080/api/v1/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        mode: "cors",
-        credentials: "include",
-        body: JSON.stringify(data),
-      }
-    );
-    console.log("login", await res.json());
-    // localStorage.setItem("token", JSON.stringify(token));
-    return res;
+    const response = await fetch("http://localhost:8080/api/v1/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      credentials: "include",
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.log(errorData.message || "An error occurred during login.");
+    }
+
+    console.log("Logged in.");
+
+    return response;
   } catch (error) {
     console.error(error);
   }
