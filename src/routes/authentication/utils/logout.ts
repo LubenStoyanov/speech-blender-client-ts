@@ -3,7 +3,7 @@ export const logout = async () => {
   try {
     const res = await fetch(
       // "https://speech-blender-backend-production.up.railway.app/logout",
-      "http://localhost:8080/logout",
+      "http://localhost:8080/api/v1/logout",
       {
         method: "POST",
         mode: "cors",

@@ -2,7 +2,7 @@ export const login = async (data) => {
   try {
     const res = await fetch(
       // "https://speech-blender-backend-production.up.railway.app/login",
-      "http://localhost:8080/login",
+      "http://localhost:8080/api/v1/",
       {
         method: "POST",
         headers: {

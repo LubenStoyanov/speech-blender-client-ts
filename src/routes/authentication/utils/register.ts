@@ -6,7 +6,7 @@ export const register = async (data) => {
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/api/v1/json",
         },
         body: JSON.stringify(data),
         mode: "cors",
