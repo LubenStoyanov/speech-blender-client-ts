@@ -4,11 +4,12 @@ import Home from "./routes/Home";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
 import Register from "./routes/authentication/Register";
-import registerAction from "./routes/authentication/actions/register";
 import Login from "./routes/authentication/Login";
-import loginAction from "./routes/authentication/actions/login";
 import Logout from "./routes/authentication/Logout";
-import logoutAction from "./routes/authentication/actions/logout";
+import Error from "./routes/Error";
+import Profile from "./routes/Profile";
+import { AuthProvider } from "./context/authContext";
+import Protected from "./components/Protected";
 
 const router = createBrowserRouter([
   {
@@ -16,25 +17,36 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
+    path: "/error",
+    element: <Error />,
+  },
+  {
     path: "/register",
     element: <Register />,
     errorElement: <div>User already exits.</div>,
-    action: registerAction,
   },
   {
     path: "/login",
     element: <Login />,
-    action: loginAction,
   },
   {
     path: "/logout",
     element: <Logout />,
-    action: logoutAction,
+  },
+  {
+    path: "/profile/:username",
+    element: (
+      <Protected>
+        <Profile />
+      </Protected>
+    ),
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );
