@@ -7,6 +7,9 @@ import Register from "./routes/authentication/Register";
 import Login from "./routes/authentication/Login";
 import Logout from "./routes/authentication/Logout";
 import Error from "./routes/Error";
+import Profile from "./routes/Profile";
+import { AuthProvider } from "./context/authContext";
+import Protected from "./components/Protected";
 
 const router = createBrowserRouter([
   {
@@ -30,10 +33,20 @@ const router = createBrowserRouter([
     path: "/logout",
     element: <Logout />,
   },
+  {
+    path: "/profile/:username",
+    element: (
+      <Protected>
+        <Profile />
+      </Protected>
+    ),
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );

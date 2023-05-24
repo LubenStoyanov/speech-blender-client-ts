@@ -1,7 +1,9 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { login } from "./utils/login";
+import { login } from "../../api/login";
+import { useNavigate } from "react-router-dom";
+// import useAuth from "../../hooks/useAuth";
 
 const schema = yup.object({
   email: yup.string().email().required(),
@@ -11,16 +13,28 @@ const schema = yup.object({
 export type FormData = {
   email: string;
   password: string;
+  multipleErrorInput: string;
 };
 
 export default function Login() {
+  // const { loginContext } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({ resolver: yupResolver(schema) });
+  const navigate = useNavigate();
 
-  const onSubmit = (formData: FormData) => login(formData);
+  const onSubmit = async (formData: FormData) => {
+    const { status, username } = await login(formData);
+    console.log(status);
+    if (status === 200) {
+      // loginContext();
+      navigate(`/profile/${username}`);
+    } else {
+      navigate("/error");
+    }
+  };
 
   return (
     <div className="flex place-content-center min-h-screen">
@@ -29,29 +43,29 @@ export default function Login() {
         className="self-center border-2 border-black rounded-md p-10"
       >
         <fieldset className="flex flex-col space-y-5">
-          <label htmlFor="email">
+          <label className="flex flex-col" htmlFor="email">
             <input
-              {...register("email")}
-              className="border-2 border-black rounded-md pl-1"
               type="text"
-              id="email"
-              name="email"
+              {...register("email", { required: "Email required" })}
+              className="border-2 border-black rounded-md pl-1"
               autoComplete="email"
               placeholder="Email"
-              required
             />
+            {errors.password?.message && (
+              <i className="text-red-500">Email required</i>
+            )}
           </label>
-          <label htmlFor="password">
+          <label className="flex flex-col" htmlFor="password">
             <input
-              {...register("password")}
-              className="border-2 border-black rounded-md pl-1"
               type="password"
-              id="password"
-              name="password"
+              {...register("password", { required: "Password reqired" })}
+              className="border-2 border-black rounded-md pl-1"
               autoComplete="current-password"
               placeholder="Password"
-              required
             />
+            {errors.password?.message && (
+              <i className="text-red-500">Password required</i>
+            )}
           </label>
           <button type="submit" className="border-2 rounded-full border-black">
             Login

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { registerRequest } from "./utils/registerRequest";
+import { registerRequest } from "../../api/registerRequest";
 import { useNavigate } from "react-router-dom";
 
 const schema = yup.object({
@@ -20,12 +20,14 @@ function Register() {
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(schema),
+    criteriaMode: "all",
   });
 
   const onSubmit = async (formData: FormData) => {
-    const response = await registerRequest(formData);
-
-    if (response?.ok) {
+    console.log("register");
+    const { status } = await registerRequest(formData);
+    console.log(status);
+    if (status === 200) {
       navigate("/login");
     } else {
       navigate("/error");
@@ -33,41 +35,62 @@ function Register() {
   };
 
   return (
-    <div className="Root">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <fieldset className="flex flex-col justify-center m-5">
-          <label htmlFor="username">Username</label>
-          <input
-            {...register("username")}
-            type="text"
-            name="username"
-            autoComplete="username"
-            id="username"
-            defaultValue="asd"
-          />
-          <label htmlFor="email">Email</label>
-          <input
-            {...register("email")}
-            type="email"
-            name="email"
-            autoComplete="email"
-            id="email"
-            defaultValue="asd@asd.com"
-          />
-          <label htmlFor="password">Password</label>
-          <input
-            {...register("password")}
-            type="password"
-            name="password"
-            autoComplete="current-password"
-            id="password"
-            defaultValue="asd"
-            minLength={8}
-            onInvalid={() => "Please enter minium 8 chracters"}
-          />
+    <div className="flex place-content-center min-h-screen">
+      <form
+        className="self-center border-2 border-black rounded-md p-10"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <fieldset className="flex flex-col space-y-5">
+          <label className="flex flex-col" htmlFor="username">
+            <input
+              type="text"
+              className="border-2 border-black rounded-md pl-1"
+              {...register("username", {
+                required: "Username required",
+              })}
+              autoComplete="username"
+              placeholder="Username"
+            />
+            {errors.password?.message && (
+              <i className="text-red-500">Username required</i>
+            )}
+          </label>
+          <label className="flex flex-col" htmlFor="email">
+            <input
+              type="email"
+              className="border-2 border-black rounded-md pl-1"
+              {...register("email", {
+                required: "Email required",
+              })}
+              autoComplete="email"
+              placeholder="Email"
+            />
+            {errors.password?.message && (
+              <i className="text-red-500">Email required</i>
+            )}
+          </label>
+          <label className="flex flex-col" htmlFor="password">
+            <input
+              type="password"
+              className="border-2 border-black rounded-md pl-1"
+              {...register("password", {
+                required: "Password required",
+                // minLength: {
+                //   value: 8,
+                //   message: "Please enter a minimum of 8 characters.",
+                // },
+              })}
+              autoComplete="current-password"
+              placeholder="Password"
+            />
+            {errors.password?.message && (
+              <i className="text-red-500">Password required</i>
+            )}
+          </label>
           <button
             type="submit"
-            className="btn border-4 rounded-md border-slate-100 mt-5 p-2"
+            className="btn border-2 border-black rounded-full p-1"
+            onClick={() => console.log("clicked")}
           >
             Sign Up
           </button>
