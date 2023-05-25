@@ -1,4 +1,4 @@
-import { FormData } from "../routes/PodcastForm";
+import { FormData } from "../routes/podcast/PodcastForm";
 
 export const createPodcast = async (formData: FormData) => {
   console.log(formData);

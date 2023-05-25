@@ -10,8 +10,8 @@ import Error from "./routes/Error";
 import Profile from "./routes/Profile";
 import AuthProvider from "./context/authContext";
 import Protected from "./components/Protected";
-import PodcastForm from "./routes/PodcastForm";
-import Podcast from "./routes/Podcast";
+import PodcastForm from "./routes/podcast/PodcastForm";
+import Podcast from "./routes/podcast/Podcast";
 
 const router = createBrowserRouter([
   {
@@ -48,7 +48,7 @@ const router = createBrowserRouter([
     element: <PodcastForm />,
   },
   {
-    path: "/:username/:podcast/:podcastId",
+    path: "/:username/:title/:id",
     element: <Podcast />,
   },
 ]);

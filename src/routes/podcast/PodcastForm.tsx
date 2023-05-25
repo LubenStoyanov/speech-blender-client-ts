@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { VscArrowLeft, VscWand } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
-import { createPodcast } from "../api/createPodcast";
+import { createPodcast } from "../../api/createPodcast";
 import { useState } from "react";
 
 const schema = yup.object({
@@ -17,11 +17,9 @@ export type FormData = {
 
 export default function PodcastForm() {
   const [titleValue, setTitleValue] = useState("");
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({ resolver: yupResolver(schema) });
+  const { register, handleSubmit } = useForm<FormData>({
+    resolver: yupResolver(schema),
+  });
   const navigate = useNavigate();
   const onSubmit = async (formData: FormData) => {
     const { success, title, podcastId, username } = await createPodcast(

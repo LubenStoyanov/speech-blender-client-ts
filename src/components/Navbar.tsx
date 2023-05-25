@@ -12,7 +12,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="border-2 flex justify-between">
+    <nav className="border-2 flex justify-between w-full">
       <div>
         <img src="/logo-dark.png" className="w-[2.5rem] my-1" />
       </div>
