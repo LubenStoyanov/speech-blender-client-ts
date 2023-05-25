@@ -33,7 +33,7 @@ export default function Login() {
   const authContext = useContext(AuthContext);
 
   const onSubmit = async (formData: FormData) => {
-    const { success, userId, username }: AuthData = await login(formData);
+    const { success, username }: AuthData = await login(formData);
     if (success) {
       authContext?.setUser({ username: username });
       navigate(`/${username}`);

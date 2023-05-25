@@ -39,7 +39,7 @@ function Register() {
         onSubmit={handleSubmit(onSubmit)}
       >
         <fieldset className="flex flex-col space-y-5">
-          <label className="flex flex-col" htmlFor="username">
+          <label className="flex flex-col h-10" htmlFor="username">
             <input
               type="text"
               className="border-2 border-black rounded-md pl-1"
@@ -53,7 +53,7 @@ function Register() {
               <i className="text-red-500">Username required</i>
             )}
           </label>
-          <label className="flex flex-col" htmlFor="email">
+          <label className="flex flex-col h-10" htmlFor="email">
             <input
               type="email"
               className="border-2 border-black rounded-md pl-1"
@@ -67,7 +67,7 @@ function Register() {
               <i className="text-red-500">Email required</i>
             )}
           </label>
-          <label className="flex flex-col" htmlFor="password">
+          <label className="flex flex-col h-10" htmlFor="password">
             <input
               type="password"
               className="border-2 border-black rounded-md pl-1"

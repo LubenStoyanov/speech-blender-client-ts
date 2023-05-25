@@ -4,8 +4,7 @@ import * as yup from "yup";
 import { VscArrowLeft, VscWand } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
 import { createPodcast } from "../api/createPodcast";
-import { useContext } from "react";
-import { AuthContext } from "../context/authContext";
+import { useState } from "react";
 
 const schema = yup.object({
   title: yup.string().required(),
@@ -17,6 +16,7 @@ export type FormData = {
 };
 
 export default function PodcastForm() {
+  const [titleValue, setTitleValue] = useState("");
   const {
     register,
     handleSubmit,
@@ -44,24 +44,31 @@ export default function PodcastForm() {
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col space-y-2 items-center"
+        className="flex flex-col space-y-2 items-center mt-10"
       >
-        <div className="flex justify-between">
-          <label htmlFor="title">
-            <input
-              {...register("title")}
-              placeholder="What's on your mind?"
-              className="border-2 border-black rounded-full py-1 px-3"
-            />
-          </label>
-        </div>
-        <div>
-          <button
-            type="submit"
-            className="border-2 border-black rounded-full p-2 text-2xl"
-          >
-            <VscWand />
-          </button>
+        <div className="flex space-x-2">
+          <div className="mt-1">
+            <label htmlFor="title">
+              <input
+                {...register("title", { required: "Username required" })}
+                id="title"
+                placeholder="What's on your mind?"
+                className="border-2 border-black rounded-full py-1 px-3"
+                onChange={(e) => setTitleValue(e.target.value)}
+              />
+            </label>
+          </div>
+          <div>
+            <button
+              type="submit"
+              disabled={titleValue ? false : true}
+              className={`border-2 border-black rounded-full fixed top-2 right-4 p-2 text-2xl ${
+                titleValue ? "" : "opacity-30"
+              }`}
+            >
+              <VscWand />
+            </button>
+          </div>
         </div>
       </form>
     </div>
