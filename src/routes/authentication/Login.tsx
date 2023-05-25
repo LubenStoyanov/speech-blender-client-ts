@@ -3,7 +3,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { login } from "../../api/login";
 import { useNavigate } from "react-router-dom";
-// import useAuth from "../../hooks/useAuth";
 
 const schema = yup.object({
   email: yup.string().email().required(),
@@ -17,7 +16,6 @@ export type FormData = {
 };
 
 export default function Login() {
-  // const { loginContext } = useAuth();
   const {
     register,
     handleSubmit,
@@ -29,8 +27,7 @@ export default function Login() {
     const { status, username } = await login(formData);
     console.log(status);
     if (status === 200) {
-      // loginContext();
-      navigate(`/profile/${username}`);
+      navigate(`/${username}`);
     } else {
       navigate("/error");
     }

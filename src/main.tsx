@@ -10,11 +10,13 @@ import Error from "./routes/Error";
 import Profile from "./routes/Profile";
 import { AuthProvider } from "./context/authContext";
 import Protected from "./components/Protected";
+import PodcastForm from "./routes/PodcastForm";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+    errorElement: <Error />,
   },
   {
     path: "/error",
@@ -34,12 +36,16 @@ const router = createBrowserRouter([
     element: <Logout />,
   },
   {
-    path: "/profile/:username",
+    path: "/:username",
     element: (
       <Protected>
         <Profile />
       </Protected>
     ),
+  },
+  {
+    path: "/create/podcast",
+    element: <PodcastForm />,
   },
 ]);
 
