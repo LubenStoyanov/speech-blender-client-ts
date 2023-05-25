@@ -10,8 +10,8 @@ export const registerRequest = async (formData: FormData) => {
       body: JSON.stringify(formData),
       mode: "cors",
     });
-    console.log("registerRequest");
     const data = await response.json();
+
     return data;
   } catch (error) {
     console.error(error);

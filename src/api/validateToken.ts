@@ -5,10 +5,9 @@ export const validateToken = async () => {
       mode: "cors",
       credentials: "include",
     });
-
     const data = await response.json();
-    console.log(data);
-    return data.status === 200;
+
+    return data;
   } catch (error) {
     console.error(error);
   }

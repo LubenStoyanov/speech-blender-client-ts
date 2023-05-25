@@ -24,10 +24,8 @@ function Register() {
   });
 
   const onSubmit = async (formData: FormData) => {
-    console.log("register");
-    const { status } = await registerRequest(formData);
-    console.log(status);
-    if (status === 200) {
+    const { success } = await registerRequest(formData);
+    if (success) {
       navigate("/login");
     } else {
       navigate("/error");

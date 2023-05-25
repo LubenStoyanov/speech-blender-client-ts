@@ -1,57 +1,24 @@
-import { ReactNode, createContext, useState, useEffect } from "react";
+import { ReactNode, createContext, useState } from "react";
+
+type UserI = {
+  username: string;
+};
 
 type AuthContextI = {
-  isAuthenticated: boolean;
-  loginContext: () => void;
-  logoutContext: () => void;
+  user: UserI | null;
+  setUser: React.Dispatch<React.SetStateAction<UserI | null>>;
 };
 
 export const AuthContext = createContext<AuthContextI | null>(null);
 
-// const AuthProvider = ({ children }: { children: ReactNode }) => {
-//   const [token, setToken] = useState<string | null>(null);
-
-//   const updateToken = (newToken: string | null) => {
-//     setToken(newToken);
-//   };
-
-//   return (
-//     <AuthContext.Provider value={{ token, updateToken }}>
-//       {children}
-//     </AuthContext.Provider>
-//   );
-// };
-
-// export default AuthProvider;
-
-import Cookies from "universal-cookie";
-
-const cookies = new Cookies();
-
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  useEffect(() => {
-    const authToken = cookies.get("authToken");
-
-    if (authToken) {
-      setIsAuthenticated(true);
-    }
-  }, []);
-
-  const loginContext = () => {
-    setIsAuthenticated(true);
-  };
-
-  const logoutContext = () => {
-    setIsAuthenticated(false);
-  };
+const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const [user, setUser] = useState<UserI | null>(null);
 
   return (
-    <AuthContext.Provider
-      value={{ isAuthenticated, loginContext, logoutContext }}
-    >
+    <AuthContext.Provider value={{ user, setUser }}>
       {children}
     </AuthContext.Provider>
   );
 };
+
+export default AuthProvider;

@@ -8,9 +8,10 @@ import Login from "./routes/authentication/Login";
 import Logout from "./routes/authentication/Logout";
 import Error from "./routes/Error";
 import Profile from "./routes/Profile";
-import { AuthProvider } from "./context/authContext";
+import AuthProvider from "./context/authContext";
 import Protected from "./components/Protected";
 import PodcastForm from "./routes/PodcastForm";
+import Podcast from "./routes/Podcast";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +26,6 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
-    errorElement: <div>User already exits.</div>,
   },
   {
     path: "/login",
@@ -46,6 +46,10 @@ const router = createBrowserRouter([
   {
     path: "/create/podcast",
     element: <PodcastForm />,
+  },
+  {
+    path: "/:username/:podcast/:podcastId",
+    element: <Podcast />,
   },
 ]);
 

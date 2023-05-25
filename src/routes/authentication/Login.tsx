@@ -3,6 +3,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { login } from "../../api/login";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext";
 
 const schema = yup.object({
   email: yup.string().email().required(),
@@ -15,6 +17,12 @@ export type FormData = {
   multipleErrorInput: string;
 };
 
+type AuthData = {
+  success: boolean;
+  userId: string;
+  username: string;
+};
+
 export default function Login() {
   const {
     register,
@@ -22,11 +30,12 @@ export default function Login() {
     formState: { errors },
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const navigate = useNavigate();
+  const authContext = useContext(AuthContext);
 
   const onSubmit = async (formData: FormData) => {
-    const { status, username } = await login(formData);
-    console.log(status);
-    if (status === 200) {
+    const { success, userId, username }: AuthData = await login(formData);
+    if (success) {
+      authContext?.setUser({ username: username });
       navigate(`/${username}`);
     } else {
       navigate("/error");

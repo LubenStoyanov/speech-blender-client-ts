@@ -4,6 +4,8 @@ import * as yup from "yup";
 import { VscArrowLeft, VscWand } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
 import { createPodcast } from "../api/createPodcast";
+import { useContext } from "react";
+import { AuthContext } from "../context/authContext";
 
 const schema = yup.object({
   title: yup.string().required(),
@@ -11,6 +13,7 @@ const schema = yup.object({
 
 export type FormData = {
   title: string;
+  userId: string | undefined;
 };
 
 export default function PodcastForm() {
@@ -20,12 +23,13 @@ export default function PodcastForm() {
     formState: { errors },
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const navigate = useNavigate();
-
-  const onSubmit = async (data: FormData) => {
-    const { success, title, id, user } = await createPodcast(data);
+  const onSubmit = async (formData: FormData) => {
+    const { success, title, podcastId, username } = await createPodcast(
+      formData
+    );
 
     if (success) {
-      navigate(`/${user.username}/${title}/${id}`);
+      navigate(`/${username}/${title}/${podcastId}`);
     } else {
       navigate("/error");
     }
@@ -34,7 +38,7 @@ export default function PodcastForm() {
   return (
     <div>
       <div className="ml-2 pt-2 text-2xl">
-        <button>
+        <button onClick={() => navigate(-1)}>
           <VscArrowLeft />
         </button>
       </div>
