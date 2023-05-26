@@ -1,118 +1,53 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Tab } from "@headlessui/react";
+import { Link, useLoaderData, useNavigate, useParams } from "react-router-dom";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Tabs() {
+  const { username } = useParams();
+  const data = useLoaderData();
+  const navigate = useNavigate();
   const [categories] = useState({
-    Recent: [
-      {
-        id: 1,
-        title: "Does drinking coffee make you smarter?",
-        date: "5h ago",
-        commentCount: 5,
-        shareCount: 2,
-      },
-      {
-        id: 2,
-        title: "So you've bought coffee... now what?",
-        date: "2h ago",
-        commentCount: 3,
-        shareCount: 2,
-      },
-    ],
-
-    Favorites: [
-      {
-        id: 1,
-        title: "Ask Me Anything: 10 answers to your questions about coffee",
-        date: "2d ago",
-        commentCount: 9,
-        shareCount: 5,
-      },
-      {
-        id: 2,
-        title: "The worst advice we've ever heard about coffee",
-        date: "4d ago",
-        commentCount: 1,
-        shareCount: 2,
-      },
-    ],
-    Participant: [
-      {
-        id: 1,
-        title: "Ask Me Anything: 10 answers to your questions about coffee",
-        date: "2d ago",
-        commentCount: 9,
-        shareCount: 5,
-      },
-      {
-        id: 2,
-        title: "The worst advice we've ever heard about coffee",
-        date: "4d ago",
-        commentCount: 1,
-        shareCount: 2,
-      },
-    ],
-    Mine: [
-      {
-        id: 1,
-        title: "Ask Me Anything: 10 answers to your questions about coffee",
-        date: "2d ago",
-        commentCount: 9,
-        shareCount: 5,
-      },
-      {
-        id: 2,
-        title: "The worst advice we've ever heard about coffee",
-        date: "4d ago",
-        commentCount: 1,
-        shareCount: 2,
-      },
-    ],
-    All: [
-      {
-        id: 1,
-        title: "Is tech making coffee better or worse?",
-        date: "Jan 7",
-        commentCount: 29,
-        shareCount: 16,
-      },
-      {
-        id: 2,
-        title: "The most innovative things happening in coffee",
-        date: "Mar 19",
-        commentCount: 24,
-        shareCount: 12,
-      },
-    ],
+    Podcasts: [],
+    Contributions: [],
+    Favorites: [],
   });
 
+  useEffect(() => {
+    navigate(`/${username}/podcasts`);
+  }, [navigate, username]);
+
   return (
-    <div className="w-full max-w-md px-2 py-16 sm:px-0 ">
+    <div className="w-96 px-2 py-16 sm:px-0 ">
       <Tab.Group>
         <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
           {Object.keys(categories).map((category) => (
-            <Tab
-              key={category}
-              className={({ selected }) =>
-                classNames(
-                  "w-full rounded-lg py-2.5 text-sm font-medium leading-5",
-                  "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
-                  selected
-                    ? "bg-white shadow text-black"
-                    : "text-gray-400 hover:bg-white/[0.12] hover:text-white"
-                )
-              }
+            <Link
+              to={`/${username}/${category.toLowerCase()}`}
+              className="w-full"
             >
-              {category}
-            </Tab>
+              <Tab
+                key={category}
+                className={({ selected }) =>
+                  classNames(
+                    "w-full rounded-lg py-2.5 text-sm font-medium leading-5",
+                    "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
+                    selected
+                      ? "bg-white shadow text-black"
+                      : "text-gray-400 hover:bg-white/[0.12] hover:text-white"
+                  )
+                }
+              >
+                {category}
+              </Tab>
+            </Link>
           ))}
         </Tab.List>
         <Tab.Panels className="mt-2">
-          {Object.values(categories).map((posts, idx) => (
+          {Object.values(categories).map((podcasts, idx) => (
             <Tab.Panel
               key={idx}
               className={classNames(
@@ -121,21 +56,21 @@ export default function Tabs() {
               )}
             >
               <ul>
-                {posts.map((post) => (
+                {podcasts.map((podcast) => (
                   <li
-                    key={post.id}
+                    key={podcast.id}
                     className="relative rounded-md p-3 hover:bg-gray-100"
                   >
                     <h3 className="text-black text-sm font-medium leading-5">
-                      {post.title}
+                      {podcast.title}
                     </h3>
 
                     <ul className="mt-1 flex space-x-1 text-xs font-normal leading-4 text-gray-500">
-                      <li>{post.date}</li>
+                      <li>{podcast.date}</li>
                       <li>&middot;</li>
-                      <li>{post.commentCount} comments</li>
+                      <li>{podcast.commentCount} comments</li>
                       <li>&middot;</li>
-                      <li>{post.shareCount} shares</li>
+                      <li>{podcast.likeCount} shares</li>
                     </ul>
 
                     <a

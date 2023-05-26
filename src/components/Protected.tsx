@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { ReactNode, useEffect, useState } from "react";
-import { validateToken } from "../api/validateToken";
+import { validateToken } from "../api/auth/validateToken";
 
 export default function Protected({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

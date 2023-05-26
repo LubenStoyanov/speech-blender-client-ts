@@ -1,4 +1,5 @@
-import { FormData } from "../routes/podcast/PodcastForm";
+import { FormData } from "../../routes/podcast/PodcastForm";
+const API_URL: string = import.meta.env.VITE_API_URL;
 
 export const createPodcast = async (formData: FormData) => {
   console.log(formData);

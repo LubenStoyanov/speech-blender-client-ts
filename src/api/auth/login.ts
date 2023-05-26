@@ -1,8 +1,11 @@
-import { FormData } from "../routes/authentication/Login";
+import { FormData } from "../../routes/authentication/Login";
+
+const API_URL: string = import.meta.env.VITE_API_URL;
+console.log(API_URL);
 
 export const login = async (formData: FormData) => {
   try {
-    const response = await fetch("http://localhost:8080/api/v1/login", {
+    const response = await fetch(`${API_URL}/api/v1/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

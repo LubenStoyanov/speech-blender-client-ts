@@ -36,7 +36,7 @@ const router = createBrowserRouter([
     element: <Logout />,
   },
   {
-    path: "/:username",
+    path: "/:username/:tabName",
     element: (
       <Protected>
         <Profile />

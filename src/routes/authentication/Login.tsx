@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { login } from "../../api/login";
+import { login } from "../../api/auth/login";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
@@ -36,7 +36,7 @@ export default function Login() {
     const { success, username }: AuthData = await login(formData);
     if (success) {
       authContext?.setUser({ username: username });
-      navigate(`/${username}`);
+      navigate(`/${username}/podcasts`);
     } else {
       navigate("/error");
     }

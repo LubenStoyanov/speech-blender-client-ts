@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { VscArrowLeft, VscWand } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
-import { createPodcast } from "../../api/createPodcast";
+import { createPodcast } from "../../api/actions/createPodcast";
 import { useState } from "react";
 
 const schema = yup.object({
@@ -51,7 +51,7 @@ export default function PodcastForm() {
                 {...register("title", { required: "Username required" })}
                 id="title"
                 placeholder="What's on your mind?"
-                className="border-2 border-black rounded-full py-1 px-3"
+                className="border-2 border-black rounded-full text-center px-5 py-1"
                 onChange={(e) => setTitleValue(e.target.value)}
               />
             </label>
