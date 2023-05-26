@@ -45,11 +45,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/create/podcast",
-    element: <PodcastForm />,
+    element: (
+      <Protected>
+        <PodcastForm />,
+      </Protected>
+    ),
   },
   {
     path: "/:username/:title/:id",
-    element: <Podcast />,
+    element: (
+      <Protected>
+        <Podcast />,
+      </Protected>
+    ),
   },
 ]);
 

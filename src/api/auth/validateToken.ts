@@ -9,7 +9,7 @@ export const validateToken = async () => {
     });
     const data = await response.json();
 
-    return data;
+    return data.success;
   } catch (error) {
     console.error(error);
   }
