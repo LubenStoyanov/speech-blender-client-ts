@@ -2,7 +2,7 @@ const API_URL: string = import.meta.env.VITE_API_URL;
 
 export const validateToken = async () => {
   try {
-    const response = await fetch(`${API_URL}/api/v1/validateToken`, {
+    const response = await fetch(`${API_URL}/validateToken`, {
       method: "POST",
       mode: "cors",
       credentials: "include",

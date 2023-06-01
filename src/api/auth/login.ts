@@ -5,7 +5,7 @@ console.log(API_URL);
 
 export const login = async (formData: FormData) => {
   try {
-    const response = await fetch(`${API_URL}/api/v1/login`, {
+    const response = await fetch(`${API_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -2,8 +2,20 @@ import Layout from "../components/Layout";
 import { CiMicrophoneOn } from "react-icons/ci";
 import ProfileTabs from "../components/ProfileTabs";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
+interface PodcastI {
+  id: number;
+  title: string;
+  authorId: number;
+  recordings: [];
+  createdAt: number;
+  likeCount: number;
+  contributionCount: number;
+}
 
 export default function Profile() {
+  const [data, setData] = useState<PodcastI[]>();
   const navigate = useNavigate();
 
   return (

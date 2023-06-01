@@ -12,6 +12,7 @@ import AuthProvider from "./context/authContext";
 import Protected from "./components/Protected";
 import PodcastForm from "./routes/podcast/PodcastForm";
 import Podcast from "./routes/podcast/Podcast";
+import { loader as podcastsLoader } from "./api/loaders/getPodcasts";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
         <Profile />
       </Protected>
     ),
+    loader: podcastsLoader,
   },
   {
     path: "/create/podcast",
