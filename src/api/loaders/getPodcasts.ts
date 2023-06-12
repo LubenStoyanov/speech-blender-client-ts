@@ -4,7 +4,9 @@ const API_URL: string = import.meta.env.VITE_API_URL;
 
 const getPodcasts = async () => {
   try {
-    const response = await fetch(`${API_URL}/podcast/get`);
+    const response = await fetch(`${API_URL}/podcast/get`, {
+      credentials: "include",
+    });
     const data = await response.json();
 
     return data;
