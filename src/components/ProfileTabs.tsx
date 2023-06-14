@@ -1,6 +1,23 @@
 import { useEffect, useState } from "react";
+import { z } from "zod";
 import { Tab } from "@headlessui/react";
 import { Link, useLoaderData, useNavigate, useParams } from "react-router-dom";
+
+const PodcastSchema = z.object({
+  authorId: z.number(),
+  contributionCount: z.number(),
+  createdAt: z.date(),
+  id: z.number(),
+  likeCount: z.number(),
+  title: z.string(),
+});
+
+const LoaderDataSchema = z.object({
+  success: z.boolean(),
+  data: z.array(PodcastSchema),
+});
+
+type LoaderData = z.infer<typeof LoaderDataSchema>;
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -8,12 +25,15 @@ function classNames(...classes: string[]) {
 
 export default function Tabs() {
   const { username } = useParams();
-  const data = useLoaderData();
+  const { success, data } = useLoaderData() as LoaderData;
+  if (!success) throw Error;
+
+  console.log(data);
   const navigate = useNavigate();
   const [categories] = useState({
-    Podcasts: [],
-    Contributions: [],
-    Favorites: [],
+    Podcasts: data,
+    Contributions: data,
+    Favorites: data,
   });
 
   useEffect(() => {
@@ -66,7 +86,7 @@ export default function Tabs() {
                     </h3>
 
                     <ul className="mt-1 flex space-x-1 text-xs font-normal leading-4 text-gray-500">
-                      <li>{podcast.date}</li>
+                      {/* <li>{podcast.createdAt}</li> */}
                       <li>&middot;</li>
                       <li>{podcast.contributionCount} contributions</li>
                       <li>&middot;</li>

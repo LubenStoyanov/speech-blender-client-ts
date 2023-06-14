@@ -1,4 +1,4 @@
-import AuthNav from "../components/AuthNav";
+import AuthButtons from "../components/AuthButtons";
 import Layout from "../components/Layout";
 
 export default function Home() {
@@ -15,7 +15,7 @@ export default function Home() {
           allowFullScreen
           className="w-full h-64"
         />
-        <AuthNav />
+        <AuthButtons />
       </div>
     </Layout>
   );

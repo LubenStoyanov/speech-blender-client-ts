@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function AuthNavigate() {
+export default function AuthButtons() {
   return (
     <div>
       <Link to="/login">
