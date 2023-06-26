@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import Layout from "../../components/Layout";
+import { CiMicrophoneOn } from "react-icons/ci";
 
 const parti = [
   { username: "john" },
@@ -21,6 +22,7 @@ export default function Podcast() {
         </ul>
       </div>
       <div className="mt-5">MediaRecorder</div>
+      <CiMicrophoneOn />
     </Layout>
   );
 }

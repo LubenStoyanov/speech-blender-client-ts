@@ -14,7 +14,7 @@ export default function Navbar() {
   return (
     <nav className="border-2 flex justify-around w-full">
       <div>
-        <Link to={`/${username ? `${username}/podcasts` : "/"}`}>
+        <Link to={`/${username ? `${username}/podcasts` : ""}`}>
           <img src="/logo-dark.png" className="w-[2.5rem] my-1" />
         </Link>
       </div>

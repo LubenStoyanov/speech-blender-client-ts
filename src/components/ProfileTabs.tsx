@@ -19,9 +19,19 @@ const LoaderDataSchema = z.object({
 
 type LoaderData = z.infer<typeof LoaderDataSchema>;
 
-function classNames(...classes: string[]) {
+const classNames = (...classes: string[]) => {
   return classes.filter(Boolean).join(" ");
-}
+};
+
+const formatDate = (dateString: Date) => {
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  const preferredLanguage = navigator.languages;
+  return new Date(dateString).toLocaleDateString(preferredLanguage, options);
+};
 
 export default function Tabs() {
   const { username } = useParams();
@@ -86,15 +96,15 @@ export default function Tabs() {
                     </h3>
 
                     <ul className="mt-1 flex space-x-1 text-xs font-normal leading-4 text-gray-500">
-                      {/* <li>{podcast.createdAt}</li> */}
+                      <li>{formatDate(podcast.createdAt)}</li>
                       <li>&middot;</li>
                       <li>{podcast.contributionCount} contributions</li>
                       <li>&middot;</li>
                       <li>{podcast.likeCount} likes</li>
                     </ul>
 
-                    <a
-                      href="#"
+                    <Link
+                      to={`/${username}/${podcast.title}/${podcast.id}`}
                       className={classNames(
                         "absolute inset-0 rounded-md",
                         "ring-blue-400 focus:z-10 focus:outline-none focus:ring-2"

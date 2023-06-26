@@ -1,5 +1,5 @@
 import Layout from "../components/Layout";
-import { CiMicrophoneOn } from "react-icons/ci";
+import { IoMdAddCircleOutline } from "react-icons/io";
 import ProfileTabs from "../components/ProfileTabs";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -27,10 +27,10 @@ export default function Profile() {
         <ProfileTabs />
         <button
           type="submit"
-          className="border-2 border-black rounded-full fixed bottom-20 right-5 text-2xl p-4"
+          className="fixed bottom-16 right-1 p-4"
           onClick={() => navigate("/create/podcast")}
         >
-          <CiMicrophoneOn className="w-6 h-6" />
+          <IoMdAddCircleOutline className="w-16 h-16" />
         </button>
       </div>
     </Layout>

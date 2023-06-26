@@ -13,6 +13,7 @@ import Protected from "./components/Protected";
 import PodcastForm from "./routes/podcast/PodcastForm";
 import Podcast from "./routes/podcast/Podcast";
 import { loader as podcastsLoader } from "./api/loaders/getPodcasts";
+import { loader as podcastLoader } from "./api/loaders/getPodcast";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,7 @@ const router = createBrowserRouter([
         <Podcast />,
       </Protected>
     ),
+    loader: podcastLoader,
   },
 ]);
 

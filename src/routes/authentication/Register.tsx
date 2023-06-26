@@ -88,7 +88,6 @@ function Register() {
           <button
             type="submit"
             className="btn border-2 border-black rounded-full p-1"
-            onClick={() => console.log("clicked")}
           >
             Sign Up
           </button>
