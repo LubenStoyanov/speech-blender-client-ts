@@ -7,13 +7,10 @@ import { createPodcast } from "../../api/actions/createPodcast";
 import { useState } from "react";
 
 const schema = yup.object({
-  title: yup.string().required(),
+  title: yup.string().trim().required(),
 });
 
-export type FormData = {
-  title: string;
-  userId: string | undefined;
-};
+export type FormData = yup.InferType<typeof schema>;
 
 export default function PodcastForm() {
   const [titleValue, setTitleValue] = useState("");
@@ -21,8 +18,9 @@ export default function PodcastForm() {
     resolver: yupResolver(schema),
   });
   const navigate = useNavigate();
+
   const onSubmit = async (formData: FormData) => {
-    const { success, title, podcastId, username } = await createPodcast(
+    const { success, username, title, podcastId } = await createPodcast(
       formData
     );
 
@@ -48,7 +46,7 @@ export default function PodcastForm() {
           <div className="mt-1">
             <label htmlFor="title">
               <input
-                {...register("title", { required: "Username required" })}
+                {...register("title", { required: "Title required" })}
                 id="title"
                 placeholder="What's on your mind?"
                 className="border-2 border-black rounded-full px-5 py-1"

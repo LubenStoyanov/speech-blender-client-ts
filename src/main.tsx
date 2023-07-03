@@ -55,7 +55,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/:username/:title/:id",
+    path: "/:username/:title/:podcastId",
     element: (
       <Protected>
         <Podcast />,

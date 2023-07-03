@@ -11,11 +11,7 @@ const schema = yup.object({
   password: yup.string().required(),
 });
 
-export type FormData = {
-  email: string;
-  password: string;
-  multipleErrorInput: string;
-};
+export type FormData = yup.InferType<typeof schema>;
 
 type AuthData = {
   success: boolean;
