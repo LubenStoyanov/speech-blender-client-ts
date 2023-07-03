@@ -51,7 +51,7 @@ export default function PodcastForm() {
                 {...register("title", { required: "Username required" })}
                 id="title"
                 placeholder="What's on your mind?"
-                className="border-2 border-black rounded-full text-center px-5 py-1"
+                className="border-2 border-black rounded-full px-5 py-1"
                 onChange={(e) => setTitleValue(e.target.value)}
               />
             </label>
