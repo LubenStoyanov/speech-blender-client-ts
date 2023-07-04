@@ -1,6 +1,4 @@
-import { useParams } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { Form, useParams } from "react-router-dom";
 import * as yup from "yup";
 import { useReactMediaRecorder } from "react-media-recorder";
 import Layout from "../../components/Layout";
@@ -23,23 +21,6 @@ const parti = [
 
 export default function Podcast() {
   const { title, podcastId } = useParams();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({
-    resolver: yupResolver(schema),
-  });
-
-  const onSubmit = (formData: FormData) => {
-    if (Object.keys(errors).length === 0) {
-      console.log("clicked", formData);
-      // Your logic here
-    } else {
-      console.log("Form has validation errors:", errors);
-    }
-    // await createRecording();
-  };
 
   const { status, startRecording, stopRecording, mediaBlobUrl } =
     useReactMediaRecorder({
@@ -81,19 +62,16 @@ export default function Podcast() {
             </button>
           </div>
 
-          <div className="self-center">
-            <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="self-center ">
+            <Form method="post">
               <label htmlFor="mediaBlobUrl">
                 <input
-                  {...register("mediaBlobUrl", {
-                    required: "Media blob URL required",
-                  })}
                   id="mediaBlobUrl"
                   type="url"
                   name="mediaBlobUrl"
                   value={mediaBlobUrl}
                   readOnly
-                  className="hidden"
+                  hidden
                 />
               </label>
               <button className="w-[50px] h-[50px]" type="submit">
@@ -101,7 +79,7 @@ export default function Podcast() {
                   <BiSave />
                 </IconContext.Provider>
               </button>
-            </form>
+            </Form>
           </div>
         </div>
         <div className="flex justify-center">
