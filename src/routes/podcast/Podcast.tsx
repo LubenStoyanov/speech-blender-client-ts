@@ -1,17 +1,10 @@
 import { Form, useParams } from "react-router-dom";
-import * as yup from "yup";
 import { useReactMediaRecorder } from "react-media-recorder";
 import Layout from "../../components/Layout";
 import { BsRecord2 } from "react-icons/bs";
 import { BsStopBtn } from "react-icons/bs";
 import { BiSave } from "react-icons/bi";
 import { IconContext } from "react-icons";
-
-const schema = yup.object({
-  mediaBlobUrl: yup.string().trim().required("Media blob URL is required."),
-});
-
-export type FormData = yup.InferType<typeof schema>;
 
 const parti = [
   { username: "john" },

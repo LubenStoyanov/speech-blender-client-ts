@@ -38,7 +38,6 @@ export default function Tabs() {
   const { success, data } = useLoaderData() as LoaderData;
   if (!success) throw Error;
 
-  console.log(data);
   const navigate = useNavigate();
   const [categories] = useState({
     Podcasts: data,

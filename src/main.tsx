@@ -12,8 +12,9 @@ import AuthProvider from "./context/authContext";
 import Protected from "./components/Protected";
 import PodcastForm from "./routes/podcast/PodcastForm";
 import Podcast from "./routes/podcast/Podcast";
+import { loader as podcastLoader } from "./api/loaders/getPodcasts";
 import { loader as podcastsLoader } from "./api/loaders/getPodcasts";
-import { loader as podcastLoader } from "./api/loaders/getPodcast";
+import { action as podcastAction } from "./api/actions/createRecording";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,7 @@ const router = createBrowserRouter([
       </Protected>
     ),
     loader: podcastLoader,
+    action: podcastAction,
   },
 ]);
 

@@ -1,7 +1,6 @@
 import { FormData } from "../../routes/authentication/Login";
 
 const API_URL: string = import.meta.env.VITE_API_URL;
-console.log(API_URL);
 
 export const login = async (formData: FormData) => {
   try {
