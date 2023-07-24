@@ -4,7 +4,8 @@ const API_URL: string = import.meta.env.VITE_API_URL;
 
 export const loader: LoaderFunction = async ({ params }) => {
   try {
-    const response = await fetch(`${API_URL}/podcast/get/${params.id}`, {
+    console.log(params);
+    const response = await fetch(`${API_URL}/podcast/get/${params.podcastId}`, {
       credentials: "include",
     });
 

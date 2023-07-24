@@ -13,7 +13,7 @@ const parti = [
 ];
 
 export default function Podcast() {
-  const { title, podcastId } = useParams();
+  const { title } = useParams();
 
   const { status, startRecording, stopRecording, mediaBlobUrl } =
     useReactMediaRecorder({
